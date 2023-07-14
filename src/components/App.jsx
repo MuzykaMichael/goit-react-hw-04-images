@@ -19,34 +19,51 @@ export const App = () =>{
   const [modalImg,setModalImg] = useState('');
 
 
+
+
+  // const getImages = async (query,page) => {
+  //   if (!query){
+  //     return alert("Type Something!!!")
+  //   }
+  //   setIsLoading(true)
+  //   try{
+  //     const {
+  //       hits,
+  //       totalHits,
+  //     } = await fetchFromApi(query,page);
+  //     if (totalHits === 0){
+  //       setIsEmpty(true)
+  //     }
+      
+  //     setImages(()=>[...images,...hits])
+  //     setIsVisible(page<(totalHits/12))
+  //     setIsEmpty(false)
+  //   } catch(error){
+  //     setError(error.message)
+  //   } finally {
+  //     setIsLoading(false)
+  //   }
+  // };
+
   useEffect(()=>{
     if (query === '') return;
-    getImages(query,page)
-  },[query,page])
-
-  const getImages = async (query,page) => {
     if (!query){
-      return alert("Type Something!!!")
-    }
-    setIsLoading(true)
-    try{
-      const {
-        hits,
-        totalHits,
-      } = await fetchFromApi(query,page);
-      if (totalHits === 0){
-        setIsEmpty(true)
-      }
-      
-      setImages(()=>[...images,...hits])
-      setIsVisible(page<(totalHits/12))
-      setIsEmpty(false)
-    } catch(error){
-      setError(error.message)
-    } finally {
-      setIsLoading(false)
-    }
-  };
+      alert("Type Something!!!")
+    } else {setIsLoading(true)
+      fetchFromApi(query,page)
+      .then(({hits,totalHits})=>{
+        if (totalHits === 0){
+          setIsEmpty(true)
+        }
+        setImages(()=>[...hits])
+        setIsVisible(page<(totalHits/12))
+        setIsEmpty(false)
+      })
+      .catch(error=>{
+        setError(error.message)
+      })}
+    
+  },[query,page])
 
   const onHandleSubmit = (value) =>{
     setQuery(value);
