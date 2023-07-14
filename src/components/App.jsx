@@ -21,30 +21,6 @@ export const App = () =>{
 
 
 
-  // const getImages = async (query,page) => {
-  //   if (!query){
-  //     return alert("Type Something!!!")
-  //   }
-  //   setIsLoading(true)
-  //   try{
-  //     const {
-  //       hits,
-  //       totalHits,
-  //     } = await fetchFromApi(query,page);
-  //     if (totalHits === 0){
-  //       setIsEmpty(true)
-  //     }
-      
-  //     setImages(()=>[...images,...hits])
-  //     setIsVisible(page<(totalHits/12))
-  //     setIsEmpty(false)
-  //   } catch(error){
-  //     setError(error.message)
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // };
-
   useEffect(()=>{
     if (query === '') return;
     if (!query){
