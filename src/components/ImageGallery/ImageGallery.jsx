@@ -1,13 +1,10 @@
-import React, {Component} from 'react'
 import { ImageList } from './ImageGallery.styled'
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem'
 import propTypes from 'prop-types'
 
-export class ImageGallery extends Component{
+export const ImageGallery =({images,setModalImage})=>{
 
     
-    render(){
-        const {images,setModalImage} = this.props;
             return(
                 <>
                     <ImageList>
@@ -23,7 +20,6 @@ export class ImageGallery extends Component{
                     </ImageList>
                 </>
             );
-    }
 }
 
 ImageGallery.propTypes = {

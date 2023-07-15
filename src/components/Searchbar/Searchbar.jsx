@@ -1,45 +1,34 @@
-import { Component } from "react";
+import { useState } from "react";
 import {Form,Button,SpanLabel,Input} from './Searchbar.styled'
 import propTypes from 'prop-types'
 
 
-export class Searchbar extends Component{
-    state = {
-        query:'',
+export const Searchbar =({onSubmit}) =>{
+    const [query,setQuery] = useState("");
+
+
+
+    const handleChange = e =>{
+        const q = e.currentTarget.value.toLowerCase().trim();
+        setQuery(q)
     }
 
-
-
-    handleChange = e =>{
-        this.setState({query:e.currentTarget.value.toLowerCase().trim()})
-    }
-
-    handleSubmit = e =>{
+    const handleSubmit = e =>{
         e.preventDefault();
 
-        const {query} = this.state;
-        const {onSubmit} = this.props;
-
         onSubmit(query);
-        this.setState({query:""})
+        setQuery("")
     }
 
-
-
-
-
-
-    render(){
-        const {query} = this.state;
         return(
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <Button type='submit'>
                     <SpanLabel>Search</SpanLabel>
                 </Button>
                 <Input
                 type="text"
                 name="query"
-                onChange={this.handleChange}
+                onChange={handleChange}
                 value={query}
                 required
                 autoFocus
@@ -47,7 +36,6 @@ export class Searchbar extends Component{
                 />
             </Form>
         )
-    }
 }
 
 Searchbar.propTypes = {

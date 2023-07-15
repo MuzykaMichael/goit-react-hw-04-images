@@ -48,6 +48,7 @@ export const App = () =>{
   }
 
   const onLoadMore = () => {
+    setImages([])
     setPage((prevState)=>(
       prevState+1
     ))

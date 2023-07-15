@@ -1,24 +1,20 @@
-import React, {Component} from 'react'
 import propTypes from 'prop-types'
 import { GalleryItem, GalleryItemImage, ModalButton } from './ImageGalleryItem.styled'
 
-export class ImageGalleryItem extends Component{
+export const ImageGalleryItem = ({alt,src,largeImg,setModalImage}) =>{
     
-    clickHandler = (src,alt) =>{
-        this.props.setModalImage(src,alt)
+    const clickHandler = (src,alt) =>{
+        setModalImage(src,alt)
     };
 
-    render(){
-        const {alt,src,largeImg} = this.props;
         return(
             <GalleryItem>
-                <ModalButton onClick={()=>this.clickHandler(largeImg,alt)} type='button'>
+                <ModalButton onClick={()=>clickHandler(largeImg,alt)} type='button'>
                     <GalleryItemImage src={src} alt={alt}/>
                 </ModalButton>
             </GalleryItem>
 
         );
-    }
 }
 
 
