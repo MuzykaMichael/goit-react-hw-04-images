@@ -31,7 +31,7 @@ export const App = () =>{
         if (totalHits === 0){
           setIsEmpty(true)
         }
-        setImages(()=>[...hits])
+        setImages((imagePrevious)=>[...imagePrevious,...hits])
         setIsVisible(page<(totalHits/12))
         setIsEmpty(false)
       })
@@ -48,7 +48,6 @@ export const App = () =>{
   }
 
   const onLoadMore = () => {
-    setImages([])
     setPage((prevState)=>(
       prevState+1
     ))
