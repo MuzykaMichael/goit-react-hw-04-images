@@ -1,50 +1,48 @@
-import { Component } from "react";
+import { useEffect } from "react";
 import propTypes from 'prop-types'
 import { createPortal } from "react-dom";
 import { ModalWindow, ModalWindowContent } from "./Modal.styled";
 
 const rootModal = document.querySelector('#root-modal');
 
-export class Modal extends Component{
-    componentDidMount(){
-        window.addEventListener('keydown', this.handleClose)
-    };
+export const Modal = ({onClose,img:{src,alt}}) =>{
 
-    componentWillUnmount(){
-        window.removeEventListener('keydown',this.handleClose)
-    };
 
-    modalClose = () =>{
-        this.props.onClose();
-    };
-
-    handleClose = evt =>{
-        if(evt.code==='Escape') {
-            this.modalClose();
+    useEffect(()=>{
+        const handleClose = evt =>{
+            if(evt.code==='Escape') {
+                onClose();
+            }
+            return;
         }
-        return;
-    }
+        window.addEventListener('keydown', handleClose)
 
-    handleModalWindowClick = evt =>{
+        return()=>{
+            window.removeEventListener('keydown',handleClose)
+        }
+    },[onClose])
+
+
+
+
+    const handleModalWindowClick = evt =>{
         if (evt.currentTarget === evt.target){
-            this.modalClose();
+            onClose();
         }
         return;
     }
 
-    render(){
-        const {src,alt} = this.props.img;
         
 
     return createPortal(
-        <ModalWindow onClick={this.handleModalWindowClick}>
+        <ModalWindow onClick={handleModalWindowClick}>
             <ModalWindowContent>
                 <img src={src} alt={alt}/>
             </ModalWindowContent>
         </ModalWindow>,
         rootModal
     )
-}
+
 }
 
 Modal.propTypes = {

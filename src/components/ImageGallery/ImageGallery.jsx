@@ -23,6 +23,11 @@ export const ImageGallery =({images,setModalImage})=>{
 }
 
 ImageGallery.propTypes = {
-    images:propTypes.arrayOf(propTypes.object.isRequired).isRequired,
+    images:propTypes.arrayOf(propTypes.shape({
+        webformatURL:propTypes.string.isRequired,
+        tags:propTypes.string.isRequired,
+        largeImageURL: propTypes.string.isRequired,
+        id: propTypes.number.isRequired,
+    }).isRequired).isRequired,
     setModalImage:propTypes.func.isRequired,
 }
